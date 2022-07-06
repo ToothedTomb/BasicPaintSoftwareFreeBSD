@@ -4,9 +4,11 @@ from tkinter.colorchooser import askcolor
 import tkinter.messagebox
 from tkinter import filedialog
 import tkinter.filedialog
+from typing_extensions import Self
 import tkinter as ttk 
 import sys
 from tkinter import Toplevel
+from PIL import Image
 def on_closing():
     root = tkinter.Toplevel()  
     root.resizable(0,0)
@@ -55,8 +57,8 @@ def WhatIsThis():
     B1.pack()    
 class Paint(object):
 
-    DEFAULT_PEN_SIZE = 100.0
-    DEFAULT_COLOR = 'purple'
+    DEFAULT_PEN_SIZE = 60.0
+    DEFAULT_COLOR = 'green'
 
 
 
@@ -64,7 +66,7 @@ class Paint(object):
         self.root = Tk()
         self.root.resizable(0,0)
         self.root.configure(bg='pink')
-        self.root.title("Basic Paint Software 2.0. (BETA)") 
+        self.root.title("Basic Paint Software 3.0!") 
         self.root.tk.call('wm', 'iconphoto', self.root._w, tkinter.PhotoImage(file='paint.png'))
         my_menu= Menu(self.root)
         self.root.config(menu=my_menu)
@@ -100,8 +102,12 @@ class Paint(object):
     def saveimage(self):
         
         self.c.update()
-        self.c.postscript(file="Drawing.ps", colormode='color')
-
+        self.c.postscript(file="YourDrawing.ps", colormode='color')
+        im = Image.open("YourDrawing.ps")
+        rgb_im = im.convert("RGB")
+        rgb_im.save("YourDrawing.jpg")
+    
+        
  
     def choose_color(self):
         self.eraser_on = False
